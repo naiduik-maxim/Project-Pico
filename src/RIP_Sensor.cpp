@@ -10,6 +10,7 @@ RIP_Sensor::RIP_Sensor(int pin) : pin(pin) {
 }
 
 bool RIP_Sensor::motionDetected() const {
+    Serial.print(digitalRead(pin) == HIGH);
     return digitalRead(pin) == HIGH;
 }
 

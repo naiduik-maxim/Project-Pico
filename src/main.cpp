@@ -2,9 +2,9 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 
-#define WIFI_SSID "TOTOLINK N150RT"
-#define WIFI_PASS "029113qweASD"
-String serverUrl = "http://192.168.1.10:5000/report_motion";
+#define WIFI_SSID "*******"
+#define WIFI_PASS "*******"
+String serverUrl = "server_url/report_motion";
 
 #include "RIP_Sensor.h"
 #define ADOPT_TIME 30
