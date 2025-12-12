@@ -2,9 +2,12 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 
-#define WIFI_SSID "*******"
-#define WIFI_PASS "*******"
-String serverUrl = "server_url/report_motion";
+#define WIFI_SSID "*********"
+#define WIFI_PASS "*********"
+
+String serverName = "*************";
+const int port = 0;
+String serverUrl = "report_motion";
 
 #include "RIP_Sensor.h"
 #define ADOPT_TIME 30
@@ -26,20 +29,22 @@ void setup() {
     Serial.print("IP Address: ");
     Serial.println(WiFi.localIP());
 
-    Serial.println("RIP Sensor Demo, waiting 30 seconds for adapting...");
+    Serial.println("Wait 30 second for adapting...");
     delay(ADOPT_TIME * 1000);
-    Serial.println("RIP Sensor Demo ready for working");
+    Serial.println("RIP Sensor working");
 }
 
 void loop() {
     if (AM132.motionDetected()) {
-        Serial.println("RIP Sensor see motion! Sending signal...");
+        Serial.println("RIP Sensor see motion!");
 
         if (WiFi.status() == WL_CONNECTED) {
             HTTPClient http;
             http.setTimeout(5000);
 
-            http.begin(serverUrl);
+            String checkURL = "http://" + serverName + ":" + String(port) + "/" + serverUrl;
+
+            http.begin(checkURL);
 
             int httpCode = http.POST("");
 
@@ -54,7 +59,7 @@ void loop() {
             Serial.println("WiFi Disconnected!");
         }
         delay(10000);
-        Serial.println("Ready for next motion...");
+        Serial.println("Ready for next motion!");
 
     } else {
         delay(100);
